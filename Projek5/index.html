@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Projek 4</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
+  <body class="bg-light">
+    <div class="container">
+        <nav class="navbar bg-light">
+            <div class="container-fluid">
+              <span class="navbar-brand mb-0 h1">Ishamashi</span>
+            </div>
+        </nav>
+
+        <div class="container row mt-5">
+            <div class="col-md-12 text-center">
+                <h3>TEBAK ANGKA</h3>
+            </div>
+            <hr>
+            <div class="row text-center d-flex justify-content-center">
+                <div class="col-md-12">
+                    <p>Tebak Angka Dari 0 - 10</p>
+                </div>
+                <div class="col-md-12">
+                    <input type="text" name="tebakan" id="tebakan" class="form-control">
+                    <button class="btn btn-secondary mt-2" id="tebak" onclick="tebak()">Tebak!</button>
+                    <button class="btn btn-secondary mt-2 d-none" id="reset" onclick="reset()">Reset!</button>
+                </div>
+                <div class="col-md-12 mt-4">
+                    <p id="jawaban"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function () {
+            random = ''
+            nyawa = ''
+            setRandom()
+        }
+
+        function setRandom() {
+            random = Math.floor(Math.random() * 11)
+            nyawa = 3
+
+            document.getElementById('jawaban').innerHTML = `AYO TEBAK ANGKA! NYAWA ANDA ${nyawa}`
+        }
+
+        function reset(){
+            document.getElementById('reset').classList.add('d-none')
+            document.getElementById('tebak').classList.remove('d-none')
+            document.getElementById('tebakan').value = ''
+
+            document.getElementById('jawaban').innerHTML = `AYO TEBAK ANGKA! NYAWA ANDA ${nyawa}`
+            setRandom()
+            return
+        }
+
+        function tebak(){
+            tebakan = document.getElementById('tebakan').value
+            jawaban = document.getElementById('jawaban')
+            if (tebakan == random) {
+                jawaban.innerHTML = `JAWABAN ANDA BENAR! JAWABAN (${random})`
+                document.getElementById('reset').classList.remove('d-none')
+                document.getElementById('tebak').classList.add('d-none')
+                return
+            }
+
+            nyawa--;
+            if (nyawa == 0) {
+                jawaban.innerHTML = "NYAWA ANDA HABIS!"
+                document.getElementById('reset').classList.remove('d-none')
+                document.getElementById('tebak').classList.add('d-none')
+                return
+            }
+
+            if (tebakan < random) {
+                jawaban.innerHTML = `COBA TEBAK LEBIH TINGGI! SISA NAYWA ${nyawa}`
+            } else if (tebakan > random) {
+                jawaban.innerHTML = `COBA TEBAK LEBIH RENDAH! SISA NAYWA ${nyawa}`
+            }
+
+            document.getElementById('tebakan').value = ''
+            return
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  </body>
+</html>
